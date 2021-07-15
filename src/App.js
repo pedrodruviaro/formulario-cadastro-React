@@ -1,23 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Formularios from "./pages/Formularios";
+import Home from "./pages/Home";
+import { ThemeProvider, createTheme } from "@material-ui/core";
+import { teal } from "@material-ui/core/colors";
+import ValidacoesCadastro from "./context/ValidacoesCadastro";
+import { validaSenha, validaCpf, validaCEP } from "./models/validacoes";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+const theme = createTheme({
+  palette: {
+    primary: teal,
+  },
+});
+
 
 function App() {
+
+  function enviarDados(dados) {
+    console.log(dados);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/cadastro">
+              <ValidacoesCadastro.Provider
+                value={{
+                  cpf: validaCpf,
+                  senha: validaSenha,
+                  cep: validaCEP
+                }}
+              >
+                <Formularios enviarDados={enviarDados} />
+              </ValidacoesCadastro.Provider>
+            </Route>
+          </Switch>
+        </Router>
+      </ThemeProvider>
     </div>
   );
 }
