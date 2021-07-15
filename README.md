@@ -1,5 +1,5 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-- Form dacastro utilizando ReactJS
+- Form cadastro utilizando ReactJS
 
 
